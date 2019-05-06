@@ -1,0 +1,7 @@
+function check_open_ports {
+  echo "############ OPEN PORTS #############"
+  echo -e "${YELLOW}Active ports and services"
+  reset_colors
+  netstat -lptu
+  echo -e "############ OPEN PORTS #############\n"
+}

@@ -1,20 +1,28 @@
 function check_ssh {
+  echo "############ SSH #############"
   if pgrep -x sshd >/dev/null
   then
-    echo "SSH Process is running ..."
+    echo "SSH server is running ..."
+    return echo "${YELLOW}[WARNING] ssh config does not exist" && sshd_config_exists
     check_permit_root_login
   else
-    echo -e "${GREEN} ${CHECK_MARK} SSH Process is not running"
+    echo -e "${GREEN}[SUCCESS] SSH server is not running"
   fi
+  reset_colors
+  echo -e "############ SSH #############\n"
+}
+
+function sshd_config_exists {
+  [ -f /etc/ssh/sshd_config ]
 }
 
 function check_permit_root_login {
   echo 'Checking if root login is enabled...'
   if grep -i 'PermitRootLogin yes' /etc/ssh/sshd_config
   then
-    echo -e "${RED} x Root Login is enabled \n"
+    echo -e "${RED}[ERROR] Root Login is enabled \n"
     echo -e "Instructions on how to disable it: "
   else
-    echo -e "${GREEN} ${CHECK_MARK} Root Login is disabled"
+    echo -e "${GREEN}[SUCCESS] Root Login is disabled"
   fi
 }

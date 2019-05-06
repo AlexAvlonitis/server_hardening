@@ -5,8 +5,11 @@
 
 GREEN='\033[0;32m'
 RED='\033[0;31m'
-CHECK_MARK='\xE2\x9C\x94'
+YELLOW='\033[0;33m'
 
+source ./helpers
 source ./ssh
+source ./ports
 
 check_ssh
+check_open_ports
