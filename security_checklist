@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# UBUNTU server security hardening checklist script.
+# Checks for most common security issues.
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+CHECK_MARK='\xE2\x9C\x94'
+
+source ./ssh
+
+check_ssh

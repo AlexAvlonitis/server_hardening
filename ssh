@@ -1,0 +1,20 @@
+function check_ssh {
+  if pgrep -x sshd >/dev/null
+  then
+    echo "SSH Process is running ..."
+    check_permit_root_login
+  else
+    echo -e "${GREEN} ${CHECK_MARK} SSH Process is not running"
+  fi
+}
+
+function check_permit_root_login {
+  echo 'Checking if root login is enabled...'
+  if grep -i 'PermitRootLogin yes'
+  then
+    echo -e "${RED} x Root Login is enabled \n"
+    echo -e "Instructions on how to disable it: "
+  else
+    echo -e "${GREEN} ${CHECK_MARK} Root Login is disabled"
+  fi
+}
