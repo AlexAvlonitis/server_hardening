@@ -3,16 +3,21 @@ function check_ssh {
   if pgrep -x sshd >/dev/null
   then
     echo "SSH server is running ..."
-    return echo -e "${YELLOW}[WARNING] ssh config does not exist" && sshd_config_exists
-    check_permit_root_login
+    if check_if_sshd_config_exists;
+    then
+      check_permit_root_login
+    else
+      echo -e "${YELLOW}[WARNING] ssh config does not exist"
+    fi
   else
     echo -e "${GREEN}[SUCCESS] SSH server is not running"
   fi
+
   reset_colors
   echo -e "############ SSH #############\n"
 }
 
-function sshd_config_exists {
+function check_if_sshd_config_exists {
   [ -f /etc/ssh/sshd_config ]
 }
 

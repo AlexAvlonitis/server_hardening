@@ -1,9 +1,9 @@
 # SERVER_HARDENING
 
-Bash script to check potential ubuntu server hardening issues
+Bash script to audit linux server hardening issues
 
 ## WIP
 
 ## HOW TO RUN
 
-`./security_checklist`
+`sudo ./security_checklist`
