@@ -10,7 +10,7 @@ function check_ssh {
 
 function check_permit_root_login {
   echo 'Checking if root login is enabled...'
-  if grep -i 'PermitRootLogin yes'
+  if grep -i 'PermitRootLogin yes' /etc/ssh/sshd_config
   then
     echo -e "${RED} x Root Login is enabled \n"
     echo -e "Instructions on how to disable it: "
