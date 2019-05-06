@@ -3,7 +3,7 @@ function check_ssh {
   if pgrep -x sshd >/dev/null
   then
     echo "SSH server is running ..."
-    return echo "${YELLOW}[WARNING] ssh config does not exist" && sshd_config_exists
+    return echo -e "${YELLOW}[WARNING] ssh config does not exist" && sshd_config_exists
     check_permit_root_login
   else
     echo -e "${GREEN}[SUCCESS] SSH server is not running"
