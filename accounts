@@ -1,0 +1,11 @@
+function check_accounts {
+  admin_account=$(awk -F: '($3=="0"){print}' /etc/passwd | grep -v '^root')
+
+  echo -e "\nACCOUNTS:"
+  if [ -z $admin_account ]
+  then
+    echo -e "${GREEN} -> [SUCCESS] only root account has root access"
+  else
+    echo -e "${YELLOW} -> [WARNING] Account: ${admin_account} in /etc/passwd file, has root access"
+  fi
+}

@@ -9,5 +9,7 @@ YELLOW='\033[0;33m'
 
 source ./helpers
 source ./ssh
+source ./accounts
 
 check_ssh
+check_accounts
