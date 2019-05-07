@@ -1,11 +1,11 @@
 function check_ssh {
-  echo "############ SSH #############"
   if pgrep -x sshd >/dev/null
   then
-    echo "SSH server is running ..."
+    echo -e "\nSSH server is running:"
     if check_if_sshd_config_exists;
     then
       check_permit_root_login
+      check_ssh_port
     else
       echo -e "${YELLOW}[WARNING] ssh config does not exist"
     fi
@@ -14,7 +14,6 @@ function check_ssh {
   fi
 
   reset_colors
-  echo -e "############ SSH #############\n"
 }
 
 function check_if_sshd_config_exists {
@@ -22,12 +21,19 @@ function check_if_sshd_config_exists {
 }
 
 function check_permit_root_login {
-  echo 'Checking if root login is enabled...'
-  if grep -i 'PermitRootLogin yes' /etc/ssh/sshd_config
+  if grep -qi "^[ \t]*PermitRootLogin[ \t]*yes" /etc/ssh/sshd_config
   then
-    echo -e "${RED}[ERROR] Root Login is enabled \n"
-    echo -e "Instructions on how to disable it: "
+    echo -e "${RED} -> [ERROR] Root Login is enabled"
   else
-    echo -e "${GREEN}[SUCCESS] Root Login is disabled"
+    echo -e "${GREEN} -> [SUCCESS] Root Login is disabled"
+  fi
+}
+
+function check_ssh_port {
+  if grep -Eqi "(^[ \t]*Port[ \t]*22|^#[ \t]*Port[ \t]*22)" /etc/ssh/sshd_config
+  then
+    echo -e "${RED} -> [ERROR] SSH server running on default port"
+  else
+    echo -e "${GREEN} -> [SUCCESS] SSH server running on non default port"
   fi
 }
